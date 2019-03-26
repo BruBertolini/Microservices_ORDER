@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item {
+    
+    private int id;
     private String description;
     private BigDecimal price;
     private BigDecimal quantity  = BigDecimal.ZERO;
