@@ -11,12 +11,21 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class Order {
 	
+ @ApiModelProperty(notes = "The database generated Order ID")
     private int id;
+    @ApiModelProperty( notes = "User E-mail", required = true)
     private String email;
+	
     private String fullName;
+	
+    @ApiModelProperty( notes = "The order delivery address", required = true)
     private String shippingAddress;
+	
     private List<Item> items;
+	
+    @ApiModelProperty( notes = "The order total amount", required = true)
     private BigDecimal total;
+	
     private Payment payment;
     private String date;
     private String status;
