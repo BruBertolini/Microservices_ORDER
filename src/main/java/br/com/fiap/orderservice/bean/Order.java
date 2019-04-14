@@ -1,6 +1,7 @@
 package br.com.fiap.orderservice.bean;
 
 import lombok.*;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 import java.math.BigDecimal;
@@ -11,24 +12,33 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class Order {
 	
- @ApiModelProperty(notes = "The database generated Order ID")
+    @ApiModelProperty(notes = "Order ID")
     private int id;
-    @ApiModelProperty( notes = "User E-mail", required = true)
-    private String email;
 	
+    @ApiModelProperty( notes = "Current user e-mail", required = true)
+    private String email;
+
+    @ApiModelProperty( notes = "Current user name", required = true)
     private String fullName;
 	
-    @ApiModelProperty( notes = "The order delivery address", required = true)
+    @ApiModelProperty( notes = "Order delivery address", required = true)
     private String shippingAddress;
 	
+    @ApiModelProperty( notes = "List of itens from order", required = true)
     private List<Item> items;
 	
-    @ApiModelProperty( notes = "The order total amount", required = true)
+    @ApiModelProperty( notes = "Order total amount", required = true)
     private BigDecimal total;
 	
+    @ApiModelProperty( notes = "Payment information", required = true)
     private Payment payment;
+ 
+    @ApiModelProperty( notes = "Order's date")
     private String date;
+	
+     @ApiModelProperty( notes = "Order's current status"
     private String status;
+		       
     public Order(int id) { this.id = id; }
 	@Override
 	public boolean equals(Object obj) {
