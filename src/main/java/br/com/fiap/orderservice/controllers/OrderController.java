@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import io.swagger.annotations.*;
 
 @Slf4j
 @RestController
+@Api(value = "Order", description = "Order Controller REST API")
 public class OrderController {
 
     private OrderService service;
@@ -19,6 +21,10 @@ public class OrderController {
         this.service = new OrderService();
     }
 
+    @ApiOperation(httpMethod = "GET", value = "Find order by ID")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Returns order object", response = Order.class)
+    })
     @GetMapping("/findById/{id}")
     public ResponseEntity<Order> find(@PathVariable("id") int id){
         Order order = this.service.findById(id);
@@ -29,6 +35,10 @@ public class OrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
+    @ApiOperation(httpMethod = "POST", value = "Save new order")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Returns created order and current status", response = Order.class)
+    })
     @PostMapping("/save")
     public ResponseEntity<Object> saveOrder(@RequestBody Order order){
         Order savedOrder = this.service.save(order);
@@ -40,6 +50,10 @@ public class OrderController {
         return ResponseEntity.created(location).build();
     }
 
+    @ApiOperation(httpMethod = "PATCH", value = "Update order")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Returns success message")
+    })
     @PatchMapping("/update")
     public ResponseEntity updateOrder(@RequestBody Order order){
         if (!this.service.update(order))
@@ -48,6 +62,10 @@ public class OrderController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @ApiOperation(httpMethod = "DELETE", value = "Delete order by ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retuns success message")
+    })
     @DeleteMapping("/order/{id}")
     public ResponseEntity deleteOrder(@PathVariable("id") int id){
         if (this.service.delete(id)) {
